@@ -89,6 +89,18 @@ main {
   justify-content: space-around;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.flex-col img {
+  width: 20px;
+  height: 20px;
+}
+
 .weather-card-dark {
   background-color: var(--primary-dark);
 }

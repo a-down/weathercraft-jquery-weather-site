@@ -48,15 +48,18 @@
   align-items: center;
 }
 
-.today-temp-graph {
-  height: 104px;
+.today-grid {
+  height: 224px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  /* border-bottom: 2px solid black; */
+  margin-bottom: 12px;
 }
 
 .temp-graph-element {
   align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .temp-graph-bar {
@@ -82,4 +85,10 @@
 .view-dashboard-link {
   flex-direction: column;
   gap: 16px;
+}
+
+.hourly-weather-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin-bottom: 12px;
 }
