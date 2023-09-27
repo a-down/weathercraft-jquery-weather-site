@@ -4,6 +4,7 @@
   --primary-light: #FFEAC8;
   --primary-dark: #FFC369;
   --primary-darkest: #935b07;
+  --gray-text: #454545;
 }
 
 h1, h2 {
@@ -16,9 +17,16 @@ h3 {
   line-height: 24px;
 }
 
-p, a, label, input, textarea, select,small,li,ul, ol, button {
+p, a, label, input, textarea, select, li, ul, ol, button {
   font-size: 14px;
   line-height: 16px;
+}
+
+small {
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--gray-text);
+  text-align: center;
 }
 
 .gray-text {
@@ -48,14 +56,18 @@ main {
 .weather-card {
   background-color: var(--primary-light);
   border-radius: 10px;
-  filter: drop-shadow(0 4px 4px rgb(147,91,7,.25));
-  height: 100px;
+  filter: drop-shadow(0 4px 2px rgb(147,91,7,.5));
   padding: 16px;
 }
 
-.card-inner-flex {
+.flex-between {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-around {
+  display: flex;
+  justify-content: space-around;
 }
 
 .weather-card-dark {
