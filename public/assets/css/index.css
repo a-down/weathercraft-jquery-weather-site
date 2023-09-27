@@ -43,6 +43,33 @@
   align-items: center;
 }
 
+.today-temp-graph {
+  height: 104px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  /* border-bottom: 2px solid black; */
+}
+
+.temp-graph-element {
+  align-self: end;
+  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.temp-graph-bar {
+  background-color: var(--primary);
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.alt-element {
+  background: var(--primary-dark);
+}
+
+.temp-graph-element small {
+  display: block;
+}
+
 .view-dashboard-link {
   flex-direction: column;
   gap: 16px;
