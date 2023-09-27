@@ -1,0 +1,68 @@
+:root {
+  font-family: 'Istok Web', sans-serif;
+  --primary: #FFD28E;
+  --primary-light: #FFEAC8;
+  --primary-dark: #FFC369;
+  --primary-darkest: #935b07;
+}
+
+h1, h2 {
+  font-size: 30px;
+  line-height: 32px;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 24px;
+}
+
+p, a, label, input, textarea, select,small,li,ul, ol, button {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.gray-text {
+  color: #454545;
+}
+
+body {
+  background-color: var(--primary);
+}
+
+header {
+  margin: 16px 0 32px 0;
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
+}
+
+header h1 {
+  flex-grow: 1;
+  color: var(--primary-darkest)
+}
+
+main {
+  margin: 0 16px;
+}
+
+.weather-card {
+  background-color: var(--primary-light);
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 4px rgb(147,91,7,.25));
+  height: 100px;
+  padding: 16px;
+}
+
+.card-inner-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.weather-card-dark {
+  background-color: var(--primary-dark);
+}
+
+.weather-card h3, 
+.weather-card p {
+  margin-bottom: 8px;
+}
