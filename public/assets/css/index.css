@@ -24,6 +24,11 @@
   margin-bottom: 24px;
 }
 
+.now-card p,
+.tonight-card p {
+  margin-bottom: 8px;
+}
+
 .now-card {
   grid-area: now;
 }
@@ -46,18 +51,17 @@
 .today-temp-graph {
   height: 104px;
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   /* border-bottom: 2px solid black; */
 }
 
 .temp-graph-element {
   align-self: end;
-  border-bottom: 2px solid #000;
-  border-bottom: 2px solid #000;
 }
 
 .temp-graph-bar {
   background-color: var(--primary);
+  border-bottom: 2px solid #000;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
@@ -68,6 +72,11 @@
 
 .temp-graph-element small {
   display: block;
+  text-align: center;
+}
+
+.temp-graph-element small {
+  margin-top: 4px;
 }
 
 .view-dashboard-link {
