@@ -51,6 +51,8 @@
   gap: 8px;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
 .openweather-icon {

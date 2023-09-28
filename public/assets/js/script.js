@@ -97,10 +97,9 @@ function fillHourlyCard(data) {
 }
 
 async function fillCards() {
-  let city = 'london'
+  let city = 'minneapolis'
   const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
-  console.log(data)
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)

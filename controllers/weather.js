@@ -10,13 +10,13 @@ async function getGeo(req) {
   
     const geo = await fetch(apiUrl)
     const geoData = await geo.json()
-    await console.log(geoData)
     return {
       lat: geoData[0].lat, 
       lon: geoData[0].lon, 
       city: geoData[0].name, 
       state: geoData[0].state,
-      country: geoData[0].country}
+      country: geoData[0].country
+    }
 
   } catch (err) {
     if( process.env.NODE_ENV === "development") console.log(err)
