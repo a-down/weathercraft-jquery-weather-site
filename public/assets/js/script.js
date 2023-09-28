@@ -98,15 +98,9 @@ function fillHourlyCard(data) {
   }
 }
 
-async function getApiKey() {
-  const res = await fetch(`../public/assets/apiKey.json`)
-  const data = await res.json()
-  return data.API_KEY
-}
-
 async function fillCards() {
-  const apiKey = await getApiKey()
-  const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?exclude=minutely&units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
+  // const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?exclude=minutely&units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
+  const res = await fetch('/api/city/miami')
   // const res = await fetch('../public/assets/testData.json')
   const data = await res.json()
   console.log(data)
