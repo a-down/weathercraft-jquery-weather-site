@@ -3,6 +3,9 @@ const tonightCard = $('.tonight-card')
 const hourlyCard = $('.hourly-card')
 const hourlyGrid = $('.today-grid')
 
+const openModal = (id) => $(`#${id}`).addClass('open')
+const closeModal = (id) => $(`#${id}`).removeClass('open')
+
 function getHourlyTime(unix) {
   const newDate = new Date(unix * 1000);
   const hour = newDate.getHours()

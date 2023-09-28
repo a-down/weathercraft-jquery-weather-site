@@ -24,13 +24,22 @@
   <header>
     <img src="./assets/icons/umbrella.png" class="icon-link grayscale"/>
     <h1>MyWeather</h1>
-    <img src="./assets/icons/search.svg" class="icon-link"/>
+    <img src="./assets/icons/search.svg" class="icon-link" onclick="openModal('search-modal')"/>
   </header>
 
   <main>
-
     <!-- quick display -->
     <div>
+      <div id="search-modal" class="modal">
+        <div>
+          <div class="modal-body">
+            <h4>hello</h4>
+            <button onclick="closeModal('search-modal')"></button>
+          </div>
+          
+        </div>
+      </div>
+
       <div class="quick-weather-heading">
         <h2 id="city-title"></h2>
         <img src="./assets/icons/star.svg" class="icon-link"/>
