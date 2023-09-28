@@ -56,7 +56,8 @@ header {
 
 header h1 {
   flex-grow: 1;
-  color: var(--primary-darkest)
+  color: #000;
+  filter: opacity(0.8)
 }
 
 main {
