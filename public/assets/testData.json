@@ -1,38 +1,48 @@
 [
-  {
-    "temperature": "50",
-    "time": "8 am"
-  },
-  {
-    "temperature": "67",
-    "time": "10 am"
-  },
-  {
-    "temperature": "70",
-    "time": "8am"
-  },
-  {
-    "temperature": "74",
-    "time": "12 am"
-  },
-  {
-    "temperature": "80",
-    "time": "2 pm"
-  },
-  {
-    "temperature": "84",
-    "time": "4 pm"
-  },
-  {
-    "temperature": "78",
-    "time": "6 pm"
-  },
-  {
-    "temperature": "67",
-    "time": "8 pm"
-  },
-  {
-    "temperature": "62",
-    "time": "10 pm"
-  }
+  [
+    {
+      "temperature": "50",
+      "time": "8 am"
+    },
+    {
+      "temperature": "67",
+      "time": "10 am"
+    },
+    {
+      "temperature": "70",
+      "time": "8am"
+    },
+    {
+      "temperature": "74",
+      "time": "12 am"
+    },
+    {
+      "temperature": "81",
+      "time": "2 pm"
+    },
+    {
+      "temperature": "89",
+      "time": "4 pm"
+    },
+    {
+      "temperature": "78",
+      "time": "6 pm"
+    },
+    {
+      "temperature": "67",
+      "time": "8 pm"
+    },
+    {
+      "temperature": "62",
+      "time": "10 pm"
+    }
+  ],
+  [
+    {
+      "temp": "70°",
+      "feelsLike": "62°",
+      "precip": "30%",
+      "wind": "10 mph SW"
+    }
+  ]
 ]
