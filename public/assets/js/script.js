@@ -69,7 +69,6 @@ function fillTonightCard(data) {
 
 // append information inside hourly card
 function fillHourlyCard(data) {
-  console.log(data)
   let barColor
 
   for (i = 0; i < 9; i++) {
@@ -98,13 +97,14 @@ function fillHourlyCard(data) {
 }
 
 async function fillCards() {
-  let city = 'minneapolis'
+  let city = 'london'
   const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
   console.log(data)
-  fillNowCard(data.current)
-  fillTonightCard(data.daily[0])
-  fillHourlyCard(data.hourly)
+  fillNowCard(data.weather.current)
+  fillTonightCard(data.weather.daily[0])
+  fillHourlyCard(data.weather.hourly)
+  $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
 fillCards()
 
