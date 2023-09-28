@@ -1,11 +1,12 @@
 const nowCard = $('.now-card')
 const tonightCard = $('.tonight-card')
-const todayGrid = $('.today-grid')
+const hourlyGrid = $('.today-grid')
 
 function getHourlyTime(unix) {
   const newDate = new Date(unix * 1000);
   const hour = newDate.getHours()
   hour > 12 ? time = `${hour - 12} pm` : time  = `${hour} am`
+  if (hour === 0) time = `12 pm`
   return(time)
 }
 
@@ -41,12 +42,12 @@ function fillTonightCard(data) {
   console.log(data)
   tonightCard.append(
     `<div class="flex-between">
-    <p>${data.temp}</p>
+    <p>${Math.round(data.temp.night)}°</p>
     <p class="gray-text">Temp</p>
   </div>
 
   <div class="flex-between">
-    <p>${data.feelsLike}</p>
+    <p>${Math.round(data.feels_like.night)}°</p>
     <p class="gray-text">Feels Like</p>
   </div>
 
@@ -64,19 +65,20 @@ function fillTonightCard(data) {
   )
 }
 
-// append information inside today card
-function fillTodayCard(data) {
+// append information inside hourly card
+function fillHourlyCard(data) {
   console.log(data)
   let barColor
 
   for (i = 0; i < 9; i++) {
     i % 2 !== 0 ? barColor = '' : barColor = 'alt-element'
-    todayGrid.append(
+    console.log(Math.round( (((data[i*2] + 20) / 140) * 100) ))
+    hourlyGrid.append(
       `<div class="temp-graph-element">
       <div>
-        <small>${data[i].temperature}°</small>
-        <div class="temp-graph-bar ${barColor}" style="height: ${(data[i].temperature + 20) / 140}px"></div>
-        <small class="bold-small">${getHourlyTime(hour.dt)}</small>
+        <small>${Math.round(data[i*2].temp)}°</small>
+        <div class="temp-graph-bar ${barColor}" style="height: ${ Math.round( ((data[i*2].temp + 20) / 140) * 100 ) }px"></div>
+        <small class="bold-small">${getHourlyTime(data[i*2].dt)}</small>
       </div>
     
       <div class="flex-col">
@@ -90,6 +92,7 @@ function fillTodayCard(data) {
       </div>
     </div>`
     )
+
   }
 }
 
@@ -101,13 +104,13 @@ async function getApiKey() {
 
 async function fillCards() {
   const apiKey = await getApiKey()
-  const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
+  const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?exclude=minutely&units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
   // const res = await fetch('../public/assets/testData.json')
   const data = await res.json()
   console.log(data)
   fillNowCard(data.current)
-  fillTodayCard(data[0])
-  fillTonightCard(data[1][0])
+  fillTonightCard(data.daily[0])
+  fillHourlyCard(data.hourly)
 }
 fillCards()
 
