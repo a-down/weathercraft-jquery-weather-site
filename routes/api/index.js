@@ -7,9 +7,13 @@ const {
 }  = require('../../controllers/weather')
 
 router.get('/city/:city', async (req, res) => {
-  const geo = await getGeo({city: req.params.city, zip: '', zipCountry: ''})
-  const weather = await 
-  
+  try {
+    const geo = await getGeo({city: req.params.city, zip: '', zipCountry: ''})
+    const weather = await getWeather(geo)
+    return res.status(200).json(weather)
+  } catch (err) {
+    res.status(400).json({ status: 'error', err })
+  }
 })
 
 module.exports = router;

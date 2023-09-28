@@ -74,7 +74,6 @@ function fillHourlyCard(data) {
 
   for (i = 0; i < 9; i++) {
     i % 2 !== 0 ? barColor = '' : barColor = 'alt-element'
-    console.log(Math.round( (((data[i*2] + 20) / 140) * 100) ))
     hourlyGrid.append(
       `<div class="temp-graph-element">
       <div>
@@ -99,9 +98,8 @@ function fillHourlyCard(data) {
 }
 
 async function fillCards() {
-  // const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?exclude=minutely&units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
-  const res = await fetch('/api/city/miami')
-  // const res = await fetch('../public/assets/testData.json')
+  let city = 'minneapolis'
+  const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
   console.log(data)
   fillNowCard(data.current)
