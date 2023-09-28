@@ -1,7 +1,8 @@
 
 /* flexbox default */
 .quick-weather-heading,
-.view-dashboard-link {
+.view-dashboard-link,
+.loader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +28,10 @@
     'now tonight'
     'today today';
   margin-bottom: 24px;
+}
+
+.loader {
+  margin: 0;
 }
 
 .now-card p,
