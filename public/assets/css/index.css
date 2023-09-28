@@ -125,7 +125,17 @@
   overflow: auto;
 }
 
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .modal-body {
+  animation: 0.5s slideInFromTop;
   border-radius: 8px;
   background-color: var(--primary-light);
 }
@@ -158,3 +168,4 @@
   border-radius: 6px;
   border: 1px solid #454545;
 }
+
