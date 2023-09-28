@@ -1,5 +1,6 @@
 const nowCard = $('.now-card')
 const tonightCard = $('.tonight-card')
+const hourlyCard = $('.hourly-card')
 const hourlyGrid = $('.today-grid')
 
 function getHourlyTime(unix) {
@@ -12,6 +13,7 @@ function getHourlyTime(unix) {
 
 // append information inside now card
 function fillNowCard(data) {
+  nowCard.children('.loader').remove()
   let description
   data.pop !== undefined ? description = `${data.pop}%` : description = data.weather[0].description
   nowCard.append(
@@ -40,6 +42,7 @@ function fillNowCard(data) {
 }
 
 function fillTonightCard(data) {
+  tonightCard.children('.loader').remove()
   let description
   data.pop > 0 ? description = `${data.pop}%` : description = data.weather[0].description
   tonightCard.append(
@@ -69,8 +72,8 @@ function fillTonightCard(data) {
 
 // append information inside hourly card
 function fillHourlyCard(data) {
+  hourlyCard.children('.loader').remove()
   let barColor
-
   for (i = 0; i < 9; i++) {
     i % 2 !== 0 ? barColor = '' : barColor = 'alt-element'
     hourlyGrid.append(
@@ -100,7 +103,6 @@ async function fillCards() {
   let city = 'minneapolis'
   const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
-  $('.loader').remove()
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)

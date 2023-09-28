@@ -26,7 +26,7 @@
   grid-template-rows: auto;
   grid-template-areas: 
     'now tonight'
-    'today today';
+    'hourly hourly';
   margin-bottom: 24px;
 }
 
@@ -47,8 +47,8 @@
   grid-area: tonight;
 }
 
-.today-card {
-  grid-area: today;
+.hourly-card {
+  grid-area: hourly;
 }
 
 .quick-weather-card-visual {
