@@ -2,17 +2,24 @@ const nowCard = $('.now-card')
 const tonightCard = $('.tonight-card')
 const todayGrid = $('.today-grid')
 
+function getHourlyTime(unix) {
+  const newDate = new Date(unix * 1000);
+  const hour = newDate.getHours()
+  hour > 12 ? time = `${hour - 12} pm` : time  = `${hour} am`
+  return(time)
+}
+
 // append information inside now card
 function fillNowCard(data) {
-  console.log(data)
+  console.log()
   nowCard.append(
     `<div class="flex-between">
-    <p>${data.temp}</p>
+    <p>${Math.round(data.temp)}°</p>
     <p class="gray-text">Temp</p>
   </div>
 
   <div class="flex-between">
-    <p>${data.feelsLike}</p>
+    <p>${Math.round(data.feels_like)}°</p>
     <p class="gray-text">Feels Like</p>
   </div>
 
@@ -69,7 +76,7 @@ function fillTodayCard(data) {
       <div>
         <small>${data[i].temperature}°</small>
         <div class="temp-graph-bar ${barColor}" style="height: ${(data[i].temperature + 20) / 140}px"></div>
-        <small class="bold-small">${data[i].time}</small>
+        <small class="bold-small">${getHourlyTime(hour.dt)}</small>
       </div>
     
       <div class="flex-col">
@@ -94,12 +101,12 @@ async function getApiKey() {
 
 async function fillCards() {
   const apiKey = await getApiKey()
-  const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=${apiKey}`)
+  const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?units=imperial&lat=33.44&lon=-94.04&appid=${apiKey}`)
   // const res = await fetch('../public/assets/testData.json')
   const data = await res.json()
   console.log(data)
+  fillNowCard(data.current)
   fillTodayCard(data[0])
-  fillNowCard(data[1][0])
   fillTonightCard(data[1][0])
 }
 fillCards()
