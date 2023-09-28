@@ -12,7 +12,8 @@ function getHourlyTime(unix) {
 
 // append information inside now card
 function fillNowCard(data) {
-  console.log(data.weather.icon)
+  let description
+  data.pop !== undefined ? description = `${data.pop}%` : description = data.weather[0].description
   nowCard.append(
     `<div class="flex-between">
     <p>${Math.round(data.temp)}°</p>
@@ -27,7 +28,7 @@ function fillNowCard(data) {
   <div class="flex-around">
     <div class="quick-weather-card-visual">
       <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" class="openweather-icon"/>
-      <small>${data.weather[0].description}</small>
+      <small>${description}</small>
     </div>
 
     <div class="quick-weather-card-visual">
@@ -39,7 +40,8 @@ function fillNowCard(data) {
 }
 
 function fillTonightCard(data) {
-  console.log(data)
+  let description
+  data.pop > 0 ? description = `${data.pop}%` : description = data.weather[0].description
   tonightCard.append(
     `<div class="flex-between">
     <p>${Math.round(data.temp.night)}°</p>
@@ -54,7 +56,7 @@ function fillTonightCard(data) {
   <div class="flex-around">
     <div class="quick-weather-card-visual">
       <img src="https://openweathermap.org/img/wn/${data.weather[0].icon.split('d')[0]}n@2x.png" class="openweather-icon"/>
-      <small>${data.weather[0].description}</small>
+      <small>${description}</small>
     </div>
 
     <div class="quick-weather-card-visual">
