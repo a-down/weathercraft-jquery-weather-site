@@ -12,7 +12,7 @@ function getHourlyTime(unix) {
 
 // append information inside now card
 function fillNowCard(data) {
-  console.log()
+  console.log(data.weather.icon)
   nowCard.append(
     `<div class="flex-between">
     <p>${Math.round(data.temp)}°</p>
@@ -26,13 +26,13 @@ function fillNowCard(data) {
 
   <div class="flex-around">
     <div class="quick-weather-card-visual">
-      <img src="https://placehold.co/48" />
-      <small>${data.precip}</small>
+      <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" class="openweather-icon"/>
+      <small>${data.weather[0].description}</small>
     </div>
 
     <div class="quick-weather-card-visual">
-      <img src="https://placehold.co/48" />
-      <small>${data.wind}</small>
+      <img src="./assets/icons/wind.png" />
+      <small>${Math.round(data.wind_speed)} mph</small>
     </div>
   </div>`
   )
@@ -53,13 +53,13 @@ function fillTonightCard(data) {
 
   <div class="flex-around">
     <div class="quick-weather-card-visual">
-      <img src="https://placehold.co/48" />
-      <small>${data.precip}</small>
+      <img src="https://openweathermap.org/img/wn/${data.weather[0].icon.split('d')[0]}n@2x.png" class="openweather-icon"/>
+      <small>${data.weather[0].description}</small>
     </div>
 
     <div class="quick-weather-card-visual">
-      <img src="https://placehold.co/48" />
-      <small>${data.wind}</small>
+      <img src="./assets/icons/wind.png" />
+      <small>${Math.round(data.wind_speed)} mph</small>
     </div>
   </div>`
   )

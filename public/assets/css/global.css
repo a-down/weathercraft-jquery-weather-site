@@ -86,7 +86,9 @@ main {
 
 .flex-around {
   display: flex;
-  justify-content: space-around;
+  gap: 16px;
+  justify-content: space-evenly;
+  align-items: ;
 }
 
 .flex-col {

@@ -50,7 +50,17 @@
   display: flex;
   gap: 8px;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+}
+
+.quick-weather-card-visual .openweather-icon {
+  transform: scale(1.5);
+}
+
+.quick-weather-card-visual img {
+  width: 48px;
+  height: 48px;
+  object-fit: fill;
 }
 
 .today-grid {
