@@ -33,8 +33,16 @@
       <div id="search-modal" class="modal">
         <div>
           <div class="modal-body">
-            <h4>hello</h4>
-            <button onclick="closeModal('search-modal')"></button>
+            <div class="modal-header">
+              <h4 class="gray-text" style="margin-top: 4px;">Search by City or Zip</h4>
+              <img src="./assets/icons/close.svg" class="icon-link close-icon" onclick="closeModal('search-modal')">
+            </div>
+            <div class="modal-content">
+              <form>
+                <input placeholder="search"/>
+                <img src="./assets/icons/search.svg" class="icon-link"/>
+              </form>
+            </div>
           </div>
           
         </div>

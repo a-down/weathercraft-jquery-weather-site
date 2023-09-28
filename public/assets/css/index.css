@@ -126,10 +126,35 @@
 }
 
 .modal-body {
-  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--primary-light);
+}
+
+.modal-header {
+  padding: 16px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
   background-color: var(--primary);
+}
+
+.modal-content {
+  padding: 16px;
 }
 
 .modal.open {
   display: block;
+}
+
+#search-modal form {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+#search-modal form input {
+  flex-grow: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #454545;
 }
