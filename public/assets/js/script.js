@@ -100,6 +100,7 @@ function fillHourlyCard(data) {
 }
 
 async function fillCards() {
+  hourlyCard.children('.loader').attr('style', 'display: block')
   let city = 'minneapolis'
   const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
