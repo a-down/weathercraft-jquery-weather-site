@@ -82,13 +82,13 @@ function fillHourlyCard(data) {
       </div>
     
       <div class="flex-col">
-        <img src="https://placehold.co/20" />
-        <small>10%</small>
+        <img src="https://openweathermap.org/img/wn/${data[i*2].weather[0].icon}@2x.png" class="openweather-icon"/>
+        <small>${data[i*2].pop * 100}%</small>
       </div>
     
       <div class="flex-col">
-        <img src="https://placehold.co/20" />
-        <small>10 mph NW</small>
+        <img src="./assets/icons/wind.png" />
+        <small>${Math.round(data[i*2].wind_speed)} mph</small>
       </div>
     </div>`
     )

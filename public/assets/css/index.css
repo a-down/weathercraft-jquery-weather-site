@@ -53,7 +53,7 @@
   justify-content: flex-end;
 }
 
-.quick-weather-card-visual .openweather-icon {
+.openweather-icon {
   transform: scale(1.5);
 }
 
