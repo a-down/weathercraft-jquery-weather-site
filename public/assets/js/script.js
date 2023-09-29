@@ -75,27 +75,34 @@ function fillTonightCard(data) {
 }
 
 // append information inside hourly card
-function fillHourlyCard(data) {
+function fillHourlyCard(dataWithExtra) {
   hourlyCard.children('.loader').remove()
   let barColor
+  let windOpacity
+  let data
   for (i = 0; i < 9; i++) {
+    data = dataWithExtra[i*2]
     i % 2 !== 0 ? barColor = '' : barColor = 'alt-element'
+    if (data.wind_speed < 8) windOpacity = 0.2
+    if (data.wind_speed > 7) windOpacity = 0.7
+    if (data.wind_speed > 18) windOpacity = 1
+
     hourlyGrid.append(
       `<div class="temp-graph-element">
       <div>
-        <small>${Math.round(data[i*2].temp)}°</small>
-        <div class="temp-graph-bar ${barColor}" style="height: ${ Math.round( ((data[i*2].temp + 20) / 140) * 100 ) }px"></div>
-        <small class="bold-small">${getHourlyTime(data[i*2].dt)}</small>
+        <small>${Math.round(data.temp)}°</small>
+        <div class="temp-graph-bar ${barColor}" style="height: ${ Math.round( ((data.temp + 20) / 140) * 100 ) }px"></div>
+        <small class="bold-small">${getHourlyTime(data.dt)}</small>
       </div>
     
       <div class="flex-col">
-        <img src="https://openweathermap.org/img/wn/${data[i*2].weather[0].icon}@2x.png" class="openweather-icon"/>
-        <small>${Math.round(data[i*2].pop * 100)}%</small>
+        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" class="openweather-icon"/>
+        <small>${Math.round(data.pop * 100)}%</small>
       </div>
     
       <div class="flex-col">
-        <img src="./assets/icons/wind.png" />
-        <small>${(Math.round(data[i*2].wind_speed))} mph</small>
+        <img src="./assets/icons/wind.png" style="opacity:${windOpacity}"/>
+        <small>${(Math.round(data.wind_speed))} mph</small>
       </div>
     </div>`
     )
