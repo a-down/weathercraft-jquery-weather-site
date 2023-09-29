@@ -6,6 +6,7 @@ const hourlyGrid = $('.today-grid')
 const openModal = (id) => $(`#${id}`).addClass('open')
 const closeModal = (id) => $(`#${id}`).removeClass('open')
 
+// get time with am and pm from unix argument
 function getHourlyTime(unix) {
   const newDate = new Date(unix * 1000);
   const hour = newDate.getHours()
@@ -102,9 +103,8 @@ function fillHourlyCard(data) {
   }
 }
 
-async function fillCards() {
+async function displayQuickWeather(city) {
   hourlyCard.children('.loader').attr('style', 'display: block')
-  let city = 'minneapolis'
   const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
   fillNowCard(data.weather.current)
@@ -112,7 +112,22 @@ async function fillCards() {
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
-fillCards()
+displayQuickWeather('duluth')
 
+$('#search-button').on('click', (e) => {
+  e.preventDefault()
+  searchForWeather()
+})
+
+function searchForWeather() {
+  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  const input = $('#search-input').val().toLowerCase()
+  const splitInput = input.split('')
+  let isZip = true
+  splitInput.forEach((letter) => {
+    if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
+  })
+  isZip ? console.log('zip') : displayQuickWeather(input)
+}
 
 

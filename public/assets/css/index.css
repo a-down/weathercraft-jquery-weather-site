@@ -164,7 +164,7 @@
 
 #search-modal form input {
   flex-grow: 1;
-  padding: 8px;
+  padding: 10px 8px 8px 8px;
   border-radius: 6px;
   border: 1px solid #454545;
 }
