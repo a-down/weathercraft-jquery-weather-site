@@ -5,20 +5,36 @@ const hourlyGrid = $('.today-grid')
 const searchForm = $('.search-form')
 let countriesData = []
 
-// get and set list of countries and country codes
-fetch('https://countriesnow.space/api/v0.1/countries')
-  .then(res => res.json())
-  .then(data => {
-    data.data.forEach(obj => {
-      countriesData.push({
-        country: obj.country,
-        code: obj.iso2
-      })
-    })
-  })
-
+// modal handlers
 const openModal = (id) => $(`#${id}`).addClass('open')
 const closeModal = (id) => $(`#${id}`).removeClass('open')
+
+// get and set list of countries and country codes
+async function getCountries() {
+  const res = await fetch('https://countriesnow.space/api/v0.1/countries')
+  const countryData = await res.json()
+  await countryData.data.forEach(obj => {
+    countriesData.push({
+      country: obj.country,
+      code: obj.iso2
+    })
+  })
+}
+
+// get query from window.location.href
+async function getQuery() {
+  const queryStrings = window.location.href.split('?')[1].split('&')
+  let queryObj = {}
+  queryStrings.forEach(string => queryObj[ string.split('=')[0] ] = ( string.split('=')[1] ))
+  return queryObj
+}
+
+// get weather with query from window.location.href
+async function getApiString(query) {
+  let apiUrl
+  query.city !== undefined ? apiUrl = `/api/city/${query.city}` : apiUrl = 'string'
+  return apiUrl
+}
 
 // get time with am and pm from unix argument
 function getHourlyTime(unix) {
@@ -59,6 +75,7 @@ function fillNowCard(data) {
   )
 }
 
+// append information inside tonight card
 function fillTonightCard(data) {
   tonightCard.children('.loader').remove()
   let description
@@ -89,13 +106,12 @@ function fillTonightCard(data) {
 }
 
 // append information inside hourly card
-function fillHourlyCard(dataWithExtra) {
+function fillHourlyCard(dataArg) {
   hourlyCard.children('.loader').remove()
   let barColor
   let windOpacity
-  let data
   for (i = 0; i < 9; i++) {
-    data = dataWithExtra[i*2]
+    let data = dataArg[i*2]
     i % 2 !== 0 ? barColor = '' : barColor = 'alt-element'
     if (data.wind_speed < 8) windOpacity = 0.2
     if (data.wind_speed > 7) windOpacity = 0.7
@@ -125,19 +141,13 @@ function fillHourlyCard(dataWithExtra) {
 }
 
 async function displayQuickWeather(city) {
-  hourlyCard.children('.loader').attr('style', 'display: block')
-  const res = await fetch(`/api/city/${city}`, {
-    headers: {
-      'Content-Type': 'application/json', // Set the content type to JSON
-    },
-  })
+  const res = await fetch(`/api/city/${city}`)
   const data = await res.json()
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
-console.log(window.location.href.split('?')[1].split('&'))
 displayQuickWeather(window.location.href.split('city=')[1])
 
 $('#search-button').on('click', (e) => {
@@ -177,5 +187,13 @@ function getZipCountry(zip) {
     window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
   })
 }
+
+async function start(){
+  getCountries()
+  const query = await getQuery()
+  const apiUrl = await getApiString(query)
+  console.log(apiUrl)
+}
+start()
 
 
