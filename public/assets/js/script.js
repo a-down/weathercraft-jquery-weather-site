@@ -32,7 +32,7 @@ async function getQuery() {
 // get apiUrl according to query object
 async function getApiString(query) {
   let apiUrl
-  query.city !== undefined ? apiUrl = `/api/city/${query.city}` : apiUrl = 'string'
+  query.city !== undefined ? apiUrl = `/api/city/${query.city}` : apiUrl = `/api/zip/${query.zip}/country/${query.country}`
   return apiUrl
 }
 
@@ -187,7 +187,7 @@ function updateSearchForm(zip) {
     countrySelect.append(`<option value="${country.code}">${country.country}</option>`)
   })
 
-  // update href with url for zip search
+  // update href with url for search by zip and country
   $('#search-zip-button').on('click', (e) => {
     e.preventDefault()
     window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
@@ -201,6 +201,7 @@ async function start(){
   const weather = await getWeather(apiUrl)
   displayQuickWeather(weather)
 }
+
 start()
 
 
