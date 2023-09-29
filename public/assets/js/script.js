@@ -29,11 +29,18 @@ async function getQuery() {
   return queryObj
 }
 
-// get weather with query from window.location.href
+// get apiUrl according to query object
 async function getApiString(query) {
   let apiUrl
   query.city !== undefined ? apiUrl = `/api/city/${query.city}` : apiUrl = 'string'
   return apiUrl
+}
+
+// get weather with apiUrl
+async function getWeather(apiUrl) {
+  const res = await fetch(apiUrl)
+  const data = await res.json()
+  return data
 }
 
 // get time with am and pm from unix argument
@@ -192,7 +199,8 @@ async function start(){
   getCountries()
   const query = await getQuery()
   const apiUrl = await getApiString(query)
-  console.log(apiUrl)
+  const weather = await getWeather(apiUrl)
+  console.log(weather)
 }
 start()
 
