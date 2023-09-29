@@ -19,7 +19,7 @@ function getHourlyTime(unix) {
 function fillNowCard(data) {
   nowCard.children('.loader').remove()
   let description
-  data.pop !== undefined ? description = `${data.pop}%` : description = data.weather[0].description
+  data.pop !== undefined ? description = `${data.pop * 100}%` : description = data.weather[0].description
   nowCard.append(
     `<div class="flex-between">
     <p>${Math.round(data.temp)}°</p>
@@ -48,7 +48,7 @@ function fillNowCard(data) {
 function fillTonightCard(data) {
   tonightCard.children('.loader').remove()
   let description
-  data.pop > 0 ? description = `${data.pop}%` : description = data.weather[0].description
+  data.pop > 0 ? description = `${data.pop * 100}%` : description = data.weather[0].description
   tonightCard.append(
     `<div class="flex-between">
     <p>${Math.round(data.temp.night)}°</p>
