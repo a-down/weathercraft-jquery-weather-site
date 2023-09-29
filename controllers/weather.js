@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const apiKey = cd35deae49bf47f67d7ac6ccfef91879
+const apiKey = 'cd35deae49bf47f67d7ac6ccfef91879'
 
 async function getGeo(req) {
   try {
