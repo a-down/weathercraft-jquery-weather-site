@@ -1,4 +1,4 @@
-[Weather Dashboard Remake](https://weathercraft-8wo7.onrender.com/)
+[Weather Dashboard Remake](https://weathercraft-68e93962bfa5.herokuapp.com/?city=duluth)
 
 Tech Stack:
 ```md
