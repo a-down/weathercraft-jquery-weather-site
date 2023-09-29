@@ -112,7 +112,7 @@ async function displayQuickWeather(city) {
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
-displayQuickWeather('duluth')
+displayQuickWeather(window.location.href.split('city=')[1])
 
 $('#search-button').on('click', (e) => {
   e.preventDefault()
