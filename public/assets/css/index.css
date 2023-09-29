@@ -158,16 +158,26 @@
 
 #search-modal form {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#search-modal .search-wrapper {
+  display: flex;
   align-items: stretch;
   gap: 8px;
 }
 
-#search-modal form input {
+#search-modal form input, #search-modal form select {
   flex-grow: 1;
   padding: 10px 8px 8px 8px;
   border-radius: 6px;
   border: none;
   filter: drop-shadow(0 .5px 1px rgb(147,91,7,.5));
+}
+
+#search-modal form select {
+  padding: 6px 8px;
 }
 
 #search-modal form button {
@@ -180,6 +190,6 @@
 }
 
 #search-modal form button:hover {
-  background-color: var(--primary-dark);
+  opacity: .8;
 }
 

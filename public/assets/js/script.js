@@ -2,6 +2,20 @@ const nowCard = $('.now-card')
 const tonightCard = $('.tonight-card')
 const hourlyCard = $('.hourly-card')
 const hourlyGrid = $('.today-grid')
+const searchForm = $('.search-form')
+let countriesData = []
+
+// get and set list of countries and country codes
+fetch('https://countriesnow.space/api/v0.1/countries')
+  .then(res => res.json())
+  .then(data => {
+    data.data.forEach(obj => {
+      countriesData.push({
+        country: obj.country,
+        code: obj.iso2
+      })
+    })
+  })
 
 const openModal = (id) => $(`#${id}`).addClass('open')
 const closeModal = (id) => $(`#${id}`).removeClass('open')
@@ -138,11 +152,29 @@ function searchForWeather() {
   splitInput.forEach((letter) => {
     if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
   })
-  isZip ? console.log('zip') : window.location.href = `/?city=${input}`
+  isZip ? getZipCountry(input) : window.location.href = `/?city=${input}`
 }
 
-function getZipState() {
-  
+function getZipCountry(zip) {
+  console.log(zip)
+  console.log(countriesData)
+  searchForm.children('div').eq('0').children('button').remove()
+  searchForm.append(`
+  <div class="search-wrapper">
+    <select placeholder="select country" class='country-select'>
+      <option value="US">United States</option>
+    </select>
+    <button id="search-zip-button">Search</button>
+  </div>`)
+  const countrySelect = $('country-select')
+  countriesData.forEach(country => {
+    countrySelect.append(`<option value="${country.code}">${country.country}</option>`)
+  })
+
+  $('#search-zip-button').on('click', (e) => {
+    e.preventDefault()
+    window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
+  })
 }
 
 
