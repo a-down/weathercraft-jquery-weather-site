@@ -137,6 +137,7 @@ async function displayQuickWeather(city) {
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
+console.log(window.location.href.split('?')[1].split('&'))
 displayQuickWeather(window.location.href.split('city=')[1])
 
 $('#search-button').on('click', (e) => {
@@ -166,7 +167,7 @@ function getZipCountry(zip) {
     </select>
     <button id="search-zip-button">Search</button>
   </div>`)
-  const countrySelect = $('country-select')
+  const countrySelect = $('.country-select')
   countriesData.forEach(country => {
     countrySelect.append(`<option value="${country.code}">${country.country}</option>`)
   })
