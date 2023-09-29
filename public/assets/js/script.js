@@ -143,26 +143,17 @@ function fillHourlyCard(dataArg) {
       </div>
     </div>`
     )
-
   }
 }
 
-async function displayQuickWeather(city) {
-  const res = await fetch(`/api/city/${city}`)
-  const data = await res.json()
+async function displayQuickWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
-displayQuickWeather(window.location.href.split('city=')[1])
 
-$('#search-button').on('click', (e) => {
-  e.preventDefault()
-  searchForWeather()
-})
-
-function searchForWeather() {
+function searchButtonHandler() {
   const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
   const input = $('#search-input').val().toLowerCase()
   const splitInput = input.split('')
@@ -170,25 +161,33 @@ function searchForWeather() {
   splitInput.forEach((letter) => {
     if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
   })
-  isZip ? getZipCountry(input) : window.location.href = `/?city=${input}`
+  isZip ? updateSearchForm(input) : window.location.href = `/?city=${input}`
 }
 
-function getZipCountry(zip) {
-  console.log(zip)
-  console.log(countriesData)
+$('#search-button').on('click', (e) => {
+  e.preventDefault()
+  searchButtonHandler()
+})
+
+function updateSearchForm(zip) {
+  // remove search button
   searchForm.children('div').eq('0').children('button').remove()
+  // append dropdown and new search button
   searchForm.append(`
-  <div class="search-wrapper">
-    <select placeholder="select country" class='country-select'>
-      <option value="US">United States</option>
-    </select>
-    <button id="search-zip-button">Search</button>
-  </div>`)
+    <div class="search-wrapper">
+      <select placeholder="select country" class='country-select'>
+        <option value="US">United States</option>
+      </select>
+      <button id="search-zip-button">Search</button>
+    </div>`)
+
   const countrySelect = $('.country-select')
+  // add options for dropdown
   countriesData.forEach(country => {
     countrySelect.append(`<option value="${country.code}">${country.country}</option>`)
   })
 
+  // update href with url for zip search
   $('#search-zip-button').on('click', (e) => {
     e.preventDefault()
     window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
@@ -200,7 +199,7 @@ async function start(){
   const query = await getQuery()
   const apiUrl = await getApiString(query)
   const weather = await getWeather(apiUrl)
-  console.log(weather)
+  displayQuickWeather(weather)
 }
 start()
 
