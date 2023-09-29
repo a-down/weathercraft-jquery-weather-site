@@ -130,4 +130,8 @@ function searchForWeather() {
   isZip ? console.log('zip') : window.location.href = `/?city=${input}`
 }
 
+function getZipState() {
+  
+}
+
 
