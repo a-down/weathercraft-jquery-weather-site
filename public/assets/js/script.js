@@ -105,7 +105,11 @@ function fillHourlyCard(data) {
 
 async function displayQuickWeather(city) {
   hourlyCard.children('.loader').attr('style', 'display: block')
-  const res = await fetch(`/api/city/${city}`)
+  const res = await fetch(`/api/city/${city}`, {
+    headers: {
+      'Content-Type': 'application/json', // Set the content type to JSON
+    },
+  })
   const data = await res.json()
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
