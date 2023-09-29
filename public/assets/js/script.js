@@ -95,7 +95,7 @@ function fillHourlyCard(data) {
     
       <div class="flex-col">
         <img src="./assets/icons/wind.png" />
-        <small>${Math.round(data[i*2].wind_speed)} mph</small>
+        <small>${(Math.round(data[i*2].wind_speed))} mph</small>
       </div>
     </div>`
     )
@@ -127,7 +127,7 @@ function searchForWeather() {
   splitInput.forEach((letter) => {
     if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
   })
-  isZip ? console.log('zip') : displayQuickWeather(input)
+  isZip ? console.log('zip') : window.location.href = `/?city=${input}`
 }
 
 
