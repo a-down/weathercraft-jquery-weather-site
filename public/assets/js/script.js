@@ -33,7 +33,6 @@ async function getQuery() {
   } else {
     return ''
   }
-  
 }
 
 function getFavorite() {
@@ -58,10 +57,6 @@ async function getApiString(query) {
   } else {
     return 
   }
-}
-
-async function getFavoriteApiString() {
-
 }
 
 // get weather with apiUrl
@@ -277,7 +272,6 @@ function updateSearchForm(zip) {
   // update href with url for search by zip and country
   $('#search-zip-button').on('click', (e) => {
     e.preventDefault()
-    // window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
     newSearch({zip: zip, country: countrySelect.val()})
   })
 }
@@ -288,12 +282,14 @@ async function start(){
   displaySearchHistory()
 
   const query = await getQuery()
-  console.log(query)  // REMOVE
   const apiUrl = await getApiString(query)
+
   if (apiUrl) {
     const weather = await getWeather(apiUrl)
     displayQuickWeather(weather)
+
   } else {
+    $('.close-icon').remove()
     openModal('search-modal')
     $('.loader').remove()
   }
