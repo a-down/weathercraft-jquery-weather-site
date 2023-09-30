@@ -18,6 +18,10 @@
   padding-bottom: 4px;
 }
 
+#city-title {
+  margin-top: 6px;
+}
+
 .quick-weather-deck {
   display: grid;
   column-gap: 16px;
@@ -192,8 +196,18 @@
   color: #646464;
 }
 
-.history-link:hover {
-  opacity: .8;
+.favorite-button {
+  background-color: var(--primary);
+  border-radius: 9px;
+  border: 1px solid var(--primary-darkest);
+  filter: none;
+  color: var(--primary-darkest);
+  font-size: 12px;
+}
+
+.favorite-button:hover {
+  opacity: 1;
+  background-color: var(--primary-light);
 }
 
 

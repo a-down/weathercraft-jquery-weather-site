@@ -194,7 +194,7 @@ async function displayQuickWeather(data) {
     $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
 
   } else {
-    $('.favorite-wrapper').append(`<button class="button">Set as Favorite</button>`)
+    $('.favorite-wrapper').append(`<button class="button favorite-button">Set as Favorite</button>`)
   }
     
 }
