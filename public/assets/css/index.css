@@ -193,3 +193,22 @@
   opacity: .8;
 }
 
+.search-history-wrapper {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-link {
+  display: block;
+  color: #646464;
+  padding: 10px 10px 8px 10px;
+  border-radius: 6px;
+  background-color: var(--primary);
+}
+
+.history-link:hover {
+  opacity: .8;
+}
+
