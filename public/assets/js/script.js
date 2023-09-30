@@ -4,6 +4,7 @@ const hourlyCard = $('.hourly-card')
 const hourlyGrid = $('.today-grid')
 const searchForm = $('.search-form')
 let countriesData = []
+let favoriteLocation
 
 // modal handlers
 const openModal = (id) => $(`#${id}`).addClass('open')
@@ -23,17 +24,44 @@ async function getCountries() {
 
 // get query from window.location.href
 async function getQuery() {
-  const queryStrings = window.location.href.split('?')[1].split('&')
-  let queryObj = {}
-  queryStrings.forEach(string => queryObj[ string.split('=')[0] ] = ( string.split('=')[1] ))
-  return queryObj
+  const paramString = window.location.href.split('?')[1]
+  if (paramString) {
+    const queryStrings = paramString.split('&')
+    let queryObj = {}
+    queryStrings.forEach(string => queryObj[ string.split('=')[0] ] = ( string.split('=')[1] ))
+    return queryObj
+  } else {
+    return ''
+  }
+  
+}
+
+function getFavorite() {
+  const storage = getFromStorage('Favorite Location')
+  if(storage) favoriteLocation = storage
 }
 
 // get apiUrl according to query object
 async function getApiString(query) {
   let apiUrl
-  query.city !== undefined ? apiUrl = `/api/weather/city/${query.city}` : apiUrl = `/api/weather/zip/${query.zip}/country/${query.country}`
-  return apiUrl
+  if (query) {
+    query.city !== undefined 
+      ? apiUrl = `/api/weather/city/${query.city}` 
+      : apiUrl = `/api/weather/zip/${query.zip}/country/${query.country}`
+    return apiUrl
+
+  } else if (favoriteLocation) {
+    query.zip === undefined 
+      ? apiUrl = `/api/weather/city/${favoriteLocation.city}` 
+      : `/api/weather/zip/${favoriteLocation.zip}/country/${favoriteLocation.country}`
+
+  } else {
+    return 
+  }
+}
+
+async function getFavoriteApiString() {
+
 }
 
 // get weather with apiUrl
@@ -256,11 +284,19 @@ function updateSearchForm(zip) {
 
 async function start(){
   getCountries()
-  const query = await getQuery()
-  const apiUrl = await getApiString(query)
-  const weather = await getWeather(apiUrl)
-  displayQuickWeather(weather)
+  getFavorite()
   displaySearchHistory()
+
+  const query = await getQuery()
+  console.log(query)  // REMOVE
+  const apiUrl = await getApiString(query)
+  if (apiUrl) {
+    const weather = await getWeather(apiUrl)
+    displayQuickWeather(weather)
+  } else {
+    openModal('search-modal')
+    $('.loader').remove()
+  }
 }
 
 start()
