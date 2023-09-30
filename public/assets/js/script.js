@@ -167,10 +167,11 @@ async function displayQuickWeather(data) {
 
 async function newSearch(search) {
   let apiUrl
-  search.city ? apiUrl = `/api/geo/city/${search.city}` : apiUrl = `/api/geo/zip/${search.zip}/country/${country}`
+  search.city ? apiUrl = `/api/geo/city/${search.city}` : apiUrl = `/api/geo/zip/${search.zip}/country/${search.country}`
   const res = await fetch(apiUrl)
   const data = await res.json()
   saveToStorage('Search History', {city: data.city, state: data.state, country: data.country, zip: search.zip})
+  
 }
 
 function searchButtonHandler() {
@@ -210,7 +211,8 @@ function updateSearchForm(zip) {
   // update href with url for search by zip and country
   $('#search-zip-button').on('click', (e) => {
     e.preventDefault()
-    window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
+    // window.location.href = `/?zip=${zip}&country=${countrySelect.val()}`
+    newSearch({zip: zip, country: countrySelect.val()})
   })
 }
 
