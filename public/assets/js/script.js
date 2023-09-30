@@ -153,9 +153,11 @@ function getFromStorage(localFileName) {
   return previousSearches
 }
 
-function saveToStorage(localFileName, data) {
+function saveToStorage(localFileName, data, replacing) {
   const history = getFromStorage(localFileName)
-  localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
+  replacing 
+    ? localStorage.setItem(localFileName, JSON.stringify(data))
+    : localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
 }
 
 async function displayQuickWeather(data) {
@@ -179,7 +181,7 @@ async function newSearch(search) {
 
   const res = await fetch(apiUrl)
   const data = await res.json()
-  saveToStorage('Search History', {city: data.city, state: data.state, country: data.country, zip: search.zip})
+  saveToStorage('Search History', {city: data.city, state: data.state, country: data.country, zip: search.zip}, false) // false for replacing, save to storage is adding on , not replacing
   window.location.href = href
 }
 
