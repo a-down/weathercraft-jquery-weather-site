@@ -180,19 +180,6 @@
   padding: 6px 8px;
 }
 
-#search-modal form button {
-  padding: 10px 10px 8px 10px;
-  background-color: var(--primary);
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-  filter: drop-shadow(0 .5px 1px rgb(147,91,7,.5));
-}
-
-#search-modal form button:hover {
-  opacity: .8;
-}
-
 .search-history-wrapper {
   margin-top: 16px;
   display: flex;
@@ -203,12 +190,10 @@
 .history-link {
   display: block;
   color: #646464;
-  padding: 10px 10px 8px 10px;
-  border-radius: 6px;
-  background-color: var(--primary);
 }
 
 .history-link:hover {
   opacity: .8;
 }
+
 

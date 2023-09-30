@@ -64,6 +64,19 @@ main {
   margin: 0 16px;
 }
 
+button, .button {
+  padding: 10px 10px 8px 10px;
+  border-radius: 6px;
+  background-color: var(--primary);
+  filter: drop-shadow(0 .5px 1px rgb(147,91,7,.5));
+  border: none;
+  cursor: pointer;
+}
+
+button:hover, .button:hover {
+  opacity: .8;
+}
+
 .icon-link:hover {
   filter: opacity(50%);
   cursor: pointer;
