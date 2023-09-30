@@ -167,6 +167,33 @@ async function displayQuickWeather(data) {
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
 
+function displaySearchHistory() {
+  const history = getFromStorage('Search History')
+  let historyLink
+  if (history.length > 4) {
+    for (i = 0; i < 5; i++) {
+      history[i].zip 
+        ? historyLink = `/?zip=${history[i].zip}&country=${history[i].country}``/?city=${history[i].city}`
+        : historyLink = `/?city=${history[i].city}`
+  
+      $('.search-history-wrapper').append(
+        `<a href=${historyLink} class="history-link">${history[i].city}, ${history[i].state}, ${history[i].country}</a>`
+      )
+    }
+  } else {
+    history.forEach(search => {
+      search.zip 
+        ? historyLink = `/?zip=${search.zip}&country=${search.country}`
+        : historyLink = `/?city=${search.city}`
+      
+      $('.search-history-wrapper').append(
+        `<a href=${historyLink} class="history-link">${search.city}, ${search.state}, ${search.country}</a>`
+      )
+    })
+  }
+ 
+}
+
 async function newSearch(search) {
   let apiUrl
   let href
@@ -233,6 +260,7 @@ async function start(){
   const apiUrl = await getApiString(query)
   const weather = await getWeather(apiUrl)
   displayQuickWeather(weather)
+  displaySearchHistory()
 }
 
 start()
