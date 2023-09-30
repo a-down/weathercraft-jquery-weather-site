@@ -173,7 +173,7 @@ function displaySearchHistory() {
   if (history.length > 4) {
     for (i = 0; i < 5; i++) {
       history[i].zip 
-        ? historyLink = `/?zip=${history[i].zip}&country=${history[i].country}``/?city=${history[i].city}`
+        ? historyLink = `/?zip=${history[i].zip}&country=${history[i].country}`
         : historyLink = `/?city=${history[i].city}`
   
       $('.search-history-wrapper').append(
