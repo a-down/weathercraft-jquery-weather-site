@@ -156,7 +156,7 @@ function getFromStorage(localFileName) {
 function saveToStorage(localFileName, data, replacing) {
   const history = getFromStorage(localFileName)
   replacing 
-    ? localStorage.setItem(localFileName, JSON.stringify(data))
+    ? localStorage.setItem(localFileName, JSON.stringify([data]))
     : localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
 }
 
