@@ -188,6 +188,15 @@ async function displayQuickWeather(data) {
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
+  if (data.geo.city === favoriteLocation.city && 
+      data.geo.state === favoriteLocation.state && 
+      data.geo.country === favoriteLocation.country) {
+    $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
+
+  } else {
+    $('.favorite-wrapper').append(`<button>Set as Favorite</button>`)
+  }
+    
 }
 
 function displaySearchHistory() {
