@@ -32,7 +32,7 @@ async function getQuery() {
 // get apiUrl according to query object
 async function getApiString(query) {
   let apiUrl
-  query.city !== undefined ? apiUrl = `/api/city/${query.city}` : apiUrl = `/api/zip/${query.zip}/country/${query.country}`
+  query.city !== undefined ? apiUrl = `/api/weather/city/${query.city}` : apiUrl = `/api/weather/zip/${query.zip}/country/${query.country}`
   return apiUrl
 }
 
@@ -146,11 +146,28 @@ function fillHourlyCard(dataArg) {
   }
 }
 
+function getFromStorage() {
+
+}
+
+function saveToStorage() {
+  {
+    city: '',
+    state: '',
+    country: '',
+    zip: ''
+  }
+}
+
 async function displayQuickWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
+}
+
+function newSearch() {
+  
 }
 
 function searchButtonHandler() {
