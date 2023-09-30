@@ -146,17 +146,16 @@ function fillHourlyCard(dataArg) {
   }
 }
 
-function getFromStorage() {
-
+function getFromStorage(localFileName) {
+  const storage = JSON.parse(localStorage.getItem(localFileName))
+  let previousSearches
+  storage ? previousSearches = storage : previousSearches = []
+  return previousSearches
 }
 
-function saveToStorage() {
-  {
-    city: '',
-    state: '',
-    country: '',
-    zip: ''
-  }
+function saveToStorage(localFileName, data) {
+  const history = getFromStorage(localFileName)
+  localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
 }
 
 async function displayQuickWeather(data) {
@@ -166,8 +165,12 @@ async function displayQuickWeather(data) {
   $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
 }
 
-function newSearch() {
-  
+async function newSearch(search) {
+  let apiUrl
+  search.city ? apiUrl = `/api/geo/city/${search.city}` : apiUrl = `/api/geo/zip/${search.zip}/country/${country}`
+  const res = await fetch(apiUrl)
+  const data = await res.json()
+  saveToStorage('Search History', {city: data.city, state: data.state, country: data.country, zip: search.zip})
 }
 
 function searchButtonHandler() {
@@ -178,7 +181,7 @@ function searchButtonHandler() {
   splitInput.forEach((letter) => {
     if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
   })
-  isZip ? updateSearchForm(input) : window.location.href = `/?city=${input}`
+  isZip ? updateSearchForm(input) : newSearch({city: input})  //window.location.href = `/?city=${input}`
 }
 
 $('#search-button').on('click', (e) => {
