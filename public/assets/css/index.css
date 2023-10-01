@@ -193,8 +193,11 @@
 
 #search-modal .search-wrapper {
   display: flex;
-  align-items: stretch;
   gap: 8px;
+}
+
+#search-modal form select {
+  min-width: 200px;
 }
 
 #search-modal form input, #search-modal form select {
