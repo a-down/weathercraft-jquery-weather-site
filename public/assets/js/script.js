@@ -51,7 +51,7 @@ async function getApiString(query) {
     return apiUrl
 
   } else if (favoriteLocation) {
-    query.zip === undefined 
+    favoriteLocation.zip === undefined 
       ? apiUrl = `/api/weather/city/${favoriteLocation.city}` 
       : apiUrl = `/api/weather/zip/${favoriteLocation.zip}/country/${favoriteLocation.country}`
     return apiUrl
