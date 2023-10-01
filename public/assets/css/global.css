@@ -61,6 +61,7 @@ button, .button {
   padding: 10px 10px 8px 10px;
   border-radius: 6px;
   background-color: var(--primary);
+  color: #000;
   filter: drop-shadow(0 .5px 1px rgb(147,91,7,.5));
   border: none;
   cursor: pointer;
