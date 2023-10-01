@@ -39,7 +39,6 @@ async function getQuery() {
 function getFavorite() {
   const storage = getFromStorage('Favorite Location')
   if(storage) favoriteLocation = storage[0]
-  console.log(favoriteLocation)
 }
 
 // get apiUrl according to query object
@@ -54,7 +53,8 @@ async function getApiString(query) {
   } else if (favoriteLocation) {
     query.zip === undefined 
       ? apiUrl = `/api/weather/city/${favoriteLocation.city}` 
-      : `/api/weather/zip/${favoriteLocation.zip}/country/${favoriteLocation.country}`
+      : apiUrl = `/api/weather/zip/${favoriteLocation.zip}/country/${favoriteLocation.country}`
+    return apiUrl
 
   } else {
     return 
@@ -185,17 +185,15 @@ function saveToStorage(localFileName, data, replacing) {
     : localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
 }
 
-async function displayQuickWeather(data) {
+async function displayWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
-  console.log(data.geo)
-  console.log(favoriteLocation)
   if (data.geo.city === favoriteLocation.city && 
       data.geo.state === favoriteLocation.state && 
       data.geo.country === favoriteLocation.country) {
-        console.log('am I here?')
-    $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
+    
+      $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
 
   } else {
     $('.favorite-wrapper').append(`<button class="button favorite-button" onClick="setFavorite()">Set as Favorite</button>`)
@@ -300,7 +298,6 @@ function setCurrentLocation(geo, zip) {
 }
 
 function setFavorite() {
-  console.log('here')
   saveToStorage('Favorite Location', currentLocation, true)
 }
 
@@ -315,7 +312,7 @@ async function start(){
   if (apiUrl) {
     const weather = await getWeather(apiUrl)
     setCurrentLocation(weather.geo, query.zip)
-    displayQuickWeather(weather)
+    displayWeather(weather)
 
   } else {
     $('.close-icon').remove()
