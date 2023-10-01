@@ -206,6 +206,8 @@
   border-radius: 6px;
   border: none;
   filter: drop-shadow(0 .5px 1px rgb(147,91,7,.5));
+  background-color: #fff;
+  color: #000;
 }
 
 #search-modal form select {
