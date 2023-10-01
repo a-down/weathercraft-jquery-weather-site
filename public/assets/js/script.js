@@ -225,7 +225,6 @@ function displaySearchHistory() {
       )
     })
   }
- 
 }
 
 async function newSearch(search) {
