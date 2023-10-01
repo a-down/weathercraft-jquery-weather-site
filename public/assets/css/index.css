@@ -20,28 +20,26 @@
 
 #city-title {
   margin-top: 6px;
+  line-height: 30px;
 }
 
 /* favorite element */
 .favorite-button {
   padding: 8px 10px 6px 10px;
-  background-color: var(--primary-light);
-  border: 1px solid #000;
+  background-color: var(--primary);
+  border: 1px solid #656565;
   border-radius: 6px;
   filter: none;
-  color: #000;
+  color: #656565;
   font-size: 12px;
 }
 
 .favorite-button:hover {
-  opacity: .8;
+  background-color: var(--primary-dark);
 }
 
 .favorite-wrapper {
   min-height: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 @keyframes fadeIn {
@@ -120,10 +118,15 @@
 }
 
 .temp-graph-bar {
+  margin: auto;
   background-color: var(--primary);
-  border-bottom: 2px solid #000;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
+}
+
+.temp-graph-line {
+  border-bottom: 2px solid #000;
+  width: 100%;
 }
 
 .alt-element {
@@ -174,6 +177,8 @@
   animation: 0.5s slideInFromTop;
   border-radius: 8px;
   background-color: var(--primary-light);
+  max-width: 720px;
+  margin: auto;
 }
 
 .modal-header {
@@ -235,4 +240,26 @@
   color: #646464;
 }
 
+@media screen and (min-width: 760px) {
+  .quick-weather-deck {
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+  .quick-weather-heading {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .temp-graph-bar {
+    width: 80%;
+  }
+}
 
+@media screen and (min-width: 960px) {
+  .quick-weather-deck {
+    column-gap: 24px;
+    row-gap: 24px;
+  }
+  .temp-graph-bar {
+    width: 70%;
+  }
+}

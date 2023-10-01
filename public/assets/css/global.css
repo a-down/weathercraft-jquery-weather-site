@@ -40,7 +40,7 @@ body {
 }
 
 header {
-  margin: 16px 0 32px 0;
+  margin: 16px 0 24px 0;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -138,4 +138,40 @@ button:hover, .button:hover {
   justify-content: center;
   align-items: center;
   margin: 0;
+}
+
+@media screen and (min-width: 760px) {
+  header {
+    padding: 0 80px;
+  }
+  main {
+    margin: 0 80px;
+  }
+  .weather-card {
+    padding: 20px;
+  }
+  p {
+    font-size: 16px;
+  }
+  small {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  header {
+    padding: 0 160px;
+  }
+  main {
+    margin: 0 160px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  header {
+    padding: 0 200px;
+  }
+  main {
+    margin: 0 200px;
+  }
 }

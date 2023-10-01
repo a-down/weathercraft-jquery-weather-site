@@ -155,6 +155,7 @@ function fillHourlyCard(dataArg) {
       <div>
         <small>${Math.round(data.temp)}°</small>
         <div class="temp-graph-bar ${barColor}" style="height: ${ Math.round( ((data.temp + 20) / 140) * 100 ) }px"></div>
+        <div class="temp-graph-line"></div>
         <small class="bold-small">${getHourlyTime(data.dt)}</small>
       </div>
     
