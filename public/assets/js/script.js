@@ -226,7 +226,7 @@ function displaySearchHistory() {
     for (i = 0; i < 5; i++) {
       history[i].zip 
         ? historyLink = `/?zip=${history[i].zip}&country=${history[i].country}`
-        : historyLink = `/?city=${history[i].city}`
+        : historyLink = `/?city=${history[i].city.replace(' ', '%20').toLowerCase()}`
   
       $('.search-history-wrapper').append(
         `<a href=${historyLink} class="history-link button">${history[i].city}, ${history[i].state}, ${history[i].country}</a>`
@@ -237,7 +237,7 @@ function displaySearchHistory() {
     history.forEach(search => {
       search.zip 
         ? historyLink = `/?zip=${search.zip}&country=${search.country}`
-        : historyLink = `/?city=${search.city}`
+        : historyLink = `/?city=${search.city.replace(' ', '%20').toLowerCase()}`
       
       $('.search-history-wrapper').append(
         `<a href=${historyLink} class="history-link">${search.city}, ${search.state}, ${search.country}</a>`
@@ -253,8 +253,8 @@ async function newSearch(search) {
   let href
 
   if (search.city) {
-    apiUrl = `/api/geo/city/${search.city}` 
-    href = `/?city=${search.city}`
+    apiUrl = `/api/geo/city/${search.city.replace(' ', '%20').toLowerCase()}` 
+    href = `/?city=${search.city.replace(' ', '%20').toLowerCase()}`
   } else {
     apiUrl = `/api/geo/zip/${search.zip}/country/${search.country}`
     href = `/?zip=${search.zip}&country=${search.country}`
