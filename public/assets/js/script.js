@@ -36,7 +36,7 @@ async function getQuery() {
   }
 }
 
-function getFavorite() {
+function getFavoriteLocation() {
   const storage = getFromStorage('Favorite Location')
   if(storage) favoriteLocation = storage[0]
 }
@@ -189,16 +189,21 @@ async function displayWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
-  if (data.geo.city === favoriteLocation.city && 
-      data.geo.state === favoriteLocation.state && 
-      data.geo.country === favoriteLocation.country) {
-    
-      $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
+}
+
+function renderFavoriteElement() {
+  const favoriteElement = $('.favorite-wrapper')
+  favoriteElement.children().remove()
+  if (favoriteLocation && 
+    currentLocation.city === favoriteLocation.city && 
+    currentLocation.state === favoriteLocation.state && 
+    currentLocation.country === favoriteLocation.country) {
+
+    favoriteElement.append(`<img src="./assets/icons/star.svg" class="icon-link favorite-icon"/>`)
 
   } else {
-    $('.favorite-wrapper').append(`<button class="button favorite-button" onClick="setFavorite()">Set as Favorite</button>`)
+    favoriteElement.append(`<button class="button favorite-button" onClick="setFavorite()">Set as Favorite</button>`)
   }
-    
 }
 
 function displaySearchHistory() {
@@ -298,11 +303,13 @@ function setCurrentLocation(geo, zip) {
 
 function setFavorite() {
   saveToStorage('Favorite Location', currentLocation, true)
+  getFavoriteLocation()
+  renderFavoriteElement()
 }
 
 async function start(){
   getCountries()
-  getFavorite()
+  getFavoriteLocation()
   displaySearchHistory()
 
   const query = await getQuery()
@@ -312,6 +319,9 @@ async function start(){
     const weather = await getWeather(apiUrl)
     setCurrentLocation(weather.geo, query.zip)
     displayWeather(weather)
+    console.log('here1')
+    renderFavoriteElement()
+    console.log('here2')
 
   } else {
     $('.close-icon').remove()
