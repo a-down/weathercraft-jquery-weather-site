@@ -5,6 +5,7 @@ const hourlyGrid = $('.today-grid')
 const searchForm = $('.search-form')
 let countriesData = []
 let favoriteLocation
+let currentLocation
 
 // modal handlers
 const openModal = (id) => $(`#${id}`).addClass('open')
@@ -187,7 +188,6 @@ async function displayQuickWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
-  $('#city-title').text(`${data.geo.city}, ${data.geo.state}, ${data.geo.country}`)
   if (data.geo.city === favoriteLocation.city && 
       data.geo.state === favoriteLocation.state && 
       data.geo.country === favoriteLocation.country) {
@@ -252,7 +252,7 @@ function searchButtonHandler() {
   splitInput.forEach((letter) => {
     if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
   })
-  isZip ? updateSearchForm(input) : newSearch({city: input})  //window.location.href = `/?city=${input}`
+  isZip ? updateSearchForm(input) : newSearch({city: input})
 }
 
 $('#search-button').on('click', (e) => {
@@ -285,6 +285,20 @@ function updateSearchForm(zip) {
   })
 }
 
+function setCurrentLocation(geo, zip) {
+  $('#city-title').text(`${geo.city}, ${geo.state}, ${geo.country}`)
+  currentLocation = {
+    city: geo.city,
+    state: geo.state,
+    country: geo.country,
+    zip: zip
+  }
+}
+
+function setFavorite() {
+  console.log()
+}
+
 async function start(){
   getCountries()
   getFavorite()
@@ -295,6 +309,7 @@ async function start(){
 
   if (apiUrl) {
     const weather = await getWeather(apiUrl)
+    setCurrentLocation(weather.geo, query.zip)
     displayQuickWeather(weather)
 
   } else {

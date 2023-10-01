@@ -197,17 +197,16 @@
 }
 
 .favorite-button {
-  background-color: var(--primary);
+  padding: 8px 10px 6px 10px;
+  background-color: var(--primary-light);
   border-radius: 9px;
-  border: 1px solid var(--primary-darkest);
   filter: none;
-  color: var(--primary-darkest);
+  color: #000;
   font-size: 12px;
 }
 
 .favorite-button:hover {
-  opacity: 1;
-  background-color: var(--primary-light);
+  opacity: .8;
 }
 
 
