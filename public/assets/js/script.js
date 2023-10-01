@@ -36,6 +36,7 @@ async function getQuery() {
   }
 }
 
+// get favorite location from local storage
 function getFavoriteLocation() {
   const storage = getFromStorage('Favorite Location')
   if(storage) favoriteLocation = storage[0]
@@ -77,7 +78,7 @@ function getHourlyTime(unix) {
   return(time)
 }
 
-// append information inside now card
+// append weather data inside now card
 function fillNowCard(data) {
   nowCard.children('.loader').remove()
   let description
@@ -107,7 +108,7 @@ function fillNowCard(data) {
   )
 }
 
-// append information inside tonight card
+// append weather data inside tonight card
 function fillTonightCard(data) {
   tonightCard.children('.loader').remove()
   let description
@@ -137,7 +138,7 @@ function fillTonightCard(data) {
   )
 }
 
-// append information inside hourly card
+// append weather data inside hourly card
 function fillHourlyCard(dataArg) {
   hourlyCard.children('.loader').remove()
   let barColor
@@ -171,13 +172,18 @@ function fillHourlyCard(dataArg) {
   }
 }
 
+// reusable function to get from local storage
+  // pass in name of file
+  // return an array with data (if it exists), empty array if no storage
 function getFromStorage(localFileName) {
   const storage = JSON.parse(localStorage.getItem(localFileName))
-  let previousSearches
-  storage ? previousSearches = storage : previousSearches = []
-  return previousSearches
+  let storageReturn
+  storage ? storageReturn = storage : storageReturn = []
+  return storageReturn
 }
 
+// reusable functino to store in local storage
+  // localFileName = name of file, data = data being put in storage, replacing = boolean (true if replacing what is in storage, false if adding to storage)
 function saveToStorage(localFileName, data, replacing) {
   const history = getFromStorage(localFileName)
   replacing 
@@ -185,12 +191,16 @@ function saveToStorage(localFileName, data, replacing) {
     : localStorage.setItem(localFileName, JSON.stringify([data, ...history]))
 }
 
+// call functions to display weather inside cards
 async function displayWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
 }
 
+// if the current location matches the favorite location, show a star icon
+// if not, show a button to set location as favorite
+// called on page load and if user sets a location as their favorite
 function renderFavoriteElement() {
   const favoriteElement = $('.favorite-wrapper')
   favoriteElement.children().remove()
@@ -206,9 +216,11 @@ function renderFavoriteElement() {
   }
 }
 
+// if user has search history, show 5 most recent in search modal
 function displaySearchHistory() {
   const history = getFromStorage('Search History')
   let historyLink
+  // if there are more than 5 searches in history
   if (history.length > 4) {
     for (i = 0; i < 5; i++) {
       history[i].zip 
@@ -219,6 +231,7 @@ function displaySearchHistory() {
         `<a href=${historyLink} class="history-link button">${history[i].city}, ${history[i].state}, ${history[i].country}</a>`
       )
     }
+  // if there are fewer than 5 searches in history
   } else {
     history.forEach(search => {
       search.zip 
@@ -232,6 +245,8 @@ function displaySearchHistory() {
   }
 }
 
+// function called when a new search is called
+  // updates href with updated params
 async function newSearch(search) {
   let apiUrl
   let href
@@ -250,13 +265,17 @@ async function newSearch(search) {
   window.location.href = href
 }
 
+// function for when user clicks on the first search button
+  // if they entered a city, a new search happens with the city name
+  // if they entered a zip code (containing any numbers), updateSearchForm is called to add country select field to form
+    // country is required for a zip api call to OpenWeather Geocoder
 function searchButtonHandler() {
-  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
   const input = $('#search-input').val().toLowerCase()
   const splitInput = input.split('')
-  let isZip = true
-  splitInput.forEach((letter) => {
-    if (jQuery.inArray(letter, alphabet) !== -1) isZip = false
+  let isZip = false
+  splitInput.forEach((value) => {
+    if (jQuery.inArray(value, numbers) !== -1) isZip = true
   })
   isZip ? updateSearchForm(input) : newSearch({city: input})
 }
@@ -266,6 +285,10 @@ $('#search-button').on('click', (e) => {
   searchButtonHandler()
 })
 
+// called if user searches a zip code
+  // appends the select form with all countries and country codes as options
+  // removes previous search button
+  // appends new search button and declares slick listner
 function updateSearchForm(zip) {
   // remove search button
   searchForm.children('div').eq('0').children('button').remove()
@@ -291,6 +314,8 @@ function updateSearchForm(zip) {
   })
 }
 
+// sets currentLocation variable on page load
+  // required to check if favorite location matches current location
 function setCurrentLocation(geo, zip) {
   $('#city-title').text(`${geo.city}, ${geo.state}, ${geo.country}`)
   currentLocation = {
@@ -301,12 +326,17 @@ function setCurrentLocation(geo, zip) {
   }
 }
 
+// when user clicks 'set as favorite' button
+  // save location as favorite to local storage
+  // updates favoriteLocation variable with getFavorite Location
+  // updates button to star icon with renderFavoriteElement
 function setFavorite() {
   saveToStorage('Favorite Location', currentLocation, true)
   getFavoriteLocation()
   renderFavoriteElement()
 }
 
+// start function called on page load
 async function start(){
   getCountries()
   getFavoriteLocation()
