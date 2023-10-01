@@ -101,7 +101,7 @@ function fillNowCard(data) {
     </div>
 
     <div class="quick-weather-card-visual">
-      <img src="./assets/icons/wind.png" />
+      <img src="./assets/icons/wind.svg" />
       <small>${Math.round(data.wind_speed)} mph</small>
     </div>
   </div>`
@@ -131,7 +131,7 @@ function fillTonightCard(data) {
     </div>
 
     <div class="quick-weather-card-visual">
-      <img src="./assets/icons/wind.png" />
+      <img src="./assets/icons/wind.svg" />
       <small>${Math.round(data.wind_speed)} mph</small>
     </div>
   </div>`
@@ -164,7 +164,7 @@ function fillHourlyCard(dataArg) {
       </div>
     
       <div class="flex-col">
-        <img src="./assets/icons/wind.png" style="opacity:${windOpacity}"/>
+        <img src="./assets/icons/wind.svg" style="opacity:${windOpacity}"/>
         <small>${(Math.round(data.wind_speed))} mph</small>
       </div>
     </div>`
@@ -209,7 +209,7 @@ function renderFavoriteElement() {
     currentLocation.state === favoriteLocation.state && 
     currentLocation.country === favoriteLocation.country) {
 
-    favoriteElement.append(`<img src="./assets/icons/star.svg" class="icon-link favorite-icon"/>`)
+    favoriteElement.append(`<img src="./assets/icons/star.svg" class="favorite-icon"/>`)
 
   } else {
     favoriteElement.append(`<button class="button favorite-button" onClick="setFavorite()">Set as Favorite</button>`)
