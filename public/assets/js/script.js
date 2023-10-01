@@ -38,7 +38,8 @@ async function getQuery() {
 
 function getFavorite() {
   const storage = getFromStorage('Favorite Location')
-  if(storage) favoriteLocation = storage
+  if(storage) favoriteLocation = storage[0]
+  console.log(favoriteLocation)
 }
 
 // get apiUrl according to query object
@@ -188,13 +189,16 @@ async function displayQuickWeather(data) {
   fillNowCard(data.weather.current)
   fillTonightCard(data.weather.daily[0])
   fillHourlyCard(data.weather.hourly)
+  console.log(data.geo)
+  console.log(favoriteLocation)
   if (data.geo.city === favoriteLocation.city && 
       data.geo.state === favoriteLocation.state && 
       data.geo.country === favoriteLocation.country) {
+        console.log('am I here?')
     $('.favorite-wrapper').append(`<img src="./assets/icons/star.svg" class="icon-link"/>`)
 
   } else {
-    $('.favorite-wrapper').append(`<button class="button favorite-button">Set as Favorite</button>`)
+    $('.favorite-wrapper').append(`<button class="button favorite-button" onClick="setFavorite()">Set as Favorite</button>`)
   }
     
 }
@@ -296,7 +300,8 @@ function setCurrentLocation(geo, zip) {
 }
 
 function setFavorite() {
-  console.log()
+  console.log('here')
+  saveToStorage('Favorite Location', currentLocation, true)
 }
 
 async function start(){
