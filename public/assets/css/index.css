@@ -1,17 +1,17 @@
 
-/* flexbox default */
-.quick-weather-heading,
-.view-dashboard-link{
+/* .view-dashboard-link{
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 /* weather header section */
 .quick-weather-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 16px;
-  align-items: center;
 }
 
 .quick-weather-heading img {
@@ -26,7 +26,8 @@
 .favorite-button {
   padding: 8px 10px 6px 10px;
   background-color: var(--primary-light);
-  border-radius: 9px;
+  border: 1px solid #000;
+  border-radius: 6px;
   filter: none;
   color: #000;
   font-size: 12px;
@@ -34,6 +35,10 @@
 
 .favorite-button:hover {
   opacity: .8;
+}
+
+.favorite-wrapper {
+  min-height: 32px;
 }
 
 @keyframes fadeIn {
