@@ -32,7 +32,7 @@ I built WeatherCraft to update the [Weather Dashboard](https://github/a-down/wea
 
 [GitHub Repo](https://github.com/a-down/weathercraft-jquery-weather-site)
 
-[Deployed Site](https://weathercraft-68e93962bfa5.herokuapp.com/)
+[Deployed Site](https://weather-craft.onrender.com/)
 
 ## Resources
 
